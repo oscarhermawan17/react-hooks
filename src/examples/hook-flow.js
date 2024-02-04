@@ -9,7 +9,7 @@
 import * as React from 'react'
 
 function Child() {
-  console.log('%c    Child: render start', 'color: MediumSpringGreen')
+  console.log('%c    Child: render start', 'color: Blue')
 
   const [count, setCount] = React.useState(() => {
     console.log('%c    Child: useState(() => 0)', 'color: tomato')
@@ -55,13 +55,13 @@ function Child() {
     </button>
   )
 
-  console.log('%c    Child: render end', 'color: MediumSpringGreen')
+  console.log('%c    Child: render end', 'color: Blue')
 
   return element
 }
 
 function App() {
-  console.log('%cApp: render start', 'color: MediumSpringGreen')
+  console.log('%cApp: render start', 'color: Blue')
 
   const [showChild, setShowChild] = React.useState(() => {
     console.log('%cApp: useState(() => false)', 'color: tomato')
@@ -119,7 +119,7 @@ function App() {
     </>
   )
 
-  console.log('%cApp: render end', 'color: MediumSpringGreen')
+  console.log('%cApp: render end', 'color: Blue')
 
   return element
 }
