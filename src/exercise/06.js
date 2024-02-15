@@ -14,23 +14,25 @@ import {
 } from '../pokemon'
 
 function PokemonInfo({pokemonName}) {
-  const [pokemon, setPokemon] = React.useState(null)
-  const [error, setError] = React.useState(null)
-  const [status, setStatus] = React.useState('idle')
+  const [state, setState] = React.useState({
+    pokemon: null,
+    error: null,
+    status: 'idle',
+  })
+
+  const {pokemon, error, status} = state
 
   React.useEffect(() => {
     if (!pokemonName) {
       return
     }
-    setStatus('pending')
+    setState({status: 'pending'})
     fetchPokemon(pokemonName)
       .then(pokemonData => {
-        setPokemon(pokemonData)
-        setStatus('approved')
+        setState({status: 'resolved', pokemon: pokemonData})
       })
       .catch(error => {
-        setError(error)
-        setStatus('rejected')
+        setState({status: 'rejected', error})
       })
   }, [pokemonName])
 
@@ -45,7 +47,7 @@ function PokemonInfo({pokemonName}) {
         <pre style={{whiteSpace: 'normal'}}>{error.message}</pre>
       </div>
     )
-  } else if (status === 'approved') {
+  } else if (status === 'resolved') {
     return <PokemonDataView pokemon={pokemon} />
   }
   throw new Error('Impossible Error')
